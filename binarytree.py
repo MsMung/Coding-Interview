@@ -51,7 +51,14 @@ def bst_search(root, value):
     Return True iff the BST rooted at <root>
     contains a node whose data is <value>.
     """
-
+    curr = root
+    while (curr != None and curr.get_data() != value):
+        if value < curr.get_data():
+            curr = curr.get_left()
+        else:
+            curr = curr.get_right()
+    
+    return (curr != None)
 
 def bst_insert(root, value):
     """(BinaryTreeNode, str) -> BinaryTreeNode
@@ -60,3 +67,25 @@ def bst_insert(root, value):
     into the BST rooted at <root>.
     Return the root of the updated BST.
     """
+    new_node = BinaryTreeNode(value)
+    
+    if root == None:
+        root = new_node
+        return root
+
+    parent = None
+    curr = root
+    while (curr != None):
+        parent = curr
+        if value < curr.get_data():
+            curr = curr.get_left()
+        else:
+            curr = curr.get_right()
+
+    if value < parent.get_data():
+        parent.set_left(new_node)
+    else:
+        parent.set_right(new_node)
+    
+    return root
+
