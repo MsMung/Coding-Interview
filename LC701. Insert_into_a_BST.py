@@ -54,6 +54,40 @@ class Solution:
             root.left = self.insertIntoBST(root.left, val)
         return root
 
+# to visualize the recursion: https://pythontutor.com/visualize.html#mode=display
+# run with code below:
+'''
+class TreeNode:
+    def __init__(self, val=0, left=None, right=None):
+        self.val = val
+        self.left = left
+        self.right = right
+
+class Solution:
+    def insertIntoBST(self, root: TreeNode, val: int) -> TreeNode:
+        if not root:
+            return TreeNode(val)
+        
+        if val > root.val:
+            # insert into the right subtree
+            root.right = self.insertIntoBST(root.right, val)
+        else:
+            # insert into the left subtree
+            root.left = self.insertIntoBST(root.left, val)
+        return root
+    
+    
+root = TreeNode(4)
+root.left = TreeNode(2)
+root.left.left = TreeNode(1)
+root.left.right = TreeNode(3)
+root.right = TreeNode(7)
+
+val = 5
+solution = Solution()
+print(solution.insertIntoBST(root, val))
+'''
+
 # Approach 2. Interation
 # time complexity O(H), space complexity O(1)
 class Solution:
