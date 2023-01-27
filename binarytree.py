@@ -138,4 +138,43 @@ def bst_delete(root, value):
     The BST is unchanged if it does not
     contain a node whose data is value.
     """
-    pass
+    # find the node to delete
+    (del_node, del_parent) = bst_find(root, value)
+
+    if del_node != None:
+        # if the node to delete has no left child
+        if del_node.get_left() == None:
+            # if node to delete is root
+            if del_parent == None:
+                root = del_node.get_right()
+            elif del_parent.get_left() == del_node:
+                del_parent.set_left(del_node.get_right())
+            else:
+                del_parent.set_right(del_node.get_right())
+
+        # if the node to delete has no right child
+        elif del_node.get_right() == None:
+            if del_parent == None:
+                root = del_node.get_left()
+            elif del_parent.get_left() == del_node:
+                del_parent.set_left(del_node.get_left())
+            else:
+                del_parent.set_right(del_node.get_left())
+
+        # if the node to delete has both left and right child
+        else:
+            # find the node with next bigger value
+            (next_bigger, next_parent) = bst_find_smallest(del_node.get_right())
+
+            # copy data from the next bigger node to node to delete
+            del_node.set_data(next_bigger.get_data())
+
+            # delete next bigger node (it's easier since it only has right node or no child)
+            # if next bigger node is the right child of node to delete
+            if next_parent == None:
+                del_node.set_right(next_bigger.get_right())
+            else:
+                next_parent.set_left(next_bigger.get_right())
+
+    return root
+
