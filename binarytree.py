@@ -89,3 +89,53 @@ def bst_insert(root, value):
     
     return root
 
+def bst_find(root, value):
+    """ (BinaryTreeNode, str) -> (BinaryTreeNode, BinaryTreeNode)
+    
+    Return 2 nodes, the first pointing to a node
+    in the BST rooted at <root> whose data is <value>,
+    and the second is its parent.
+
+    For each of these nodes,
+    return None if it does not exist.
+    """
+    curr = root
+    parent = None
+    while (curr != None and curr.get_data() != value):
+        parent = curr
+        if value < curr.get_data():
+            curr = curr.get_left()
+        else:
+            curr = curr.get_right()
+    
+    if curr == None:
+        parent = None
+    return (curr, parent)
+
+def bst_find_smallest(root):
+    """ (BinaryTreeNode) -> (BinaryTreeNode, BinaryTreeNode)
+    
+    Return a node with the smallest value 
+    in the BST rooted at <root>, plus its parent.
+
+    REQ: root != None (i.e., the BST is not empty)
+    """
+    curr = root
+    parent = None
+    while (curr != None):
+        parent = curr
+        curr = curr.get_left()
+
+    return (curr, parent)
+
+def bst_delete(root, value):
+    """ (BinaryTreeNode, str) -> BinaryTreeNode
+    
+    Delete a node whose dadta is <value>
+    from the BST rooted at <root>.
+    Return the root of the updated BST.
+
+    The BST is unchanged if it does not
+    contain a node whose data is value.
+    """
+    pass
