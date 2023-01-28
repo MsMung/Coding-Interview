@@ -27,11 +27,12 @@ class Solution:
             # add root's value to result, 
             # repeat the step with root's left child
             # repeat the step with root's right child
-            if root == None:
-                return
-            result.append(root.val)
-            dfs(root.left)
-            dfs(root.right)
+            # if root == None:
+            #     return
+            if root != None:
+                result.append(root.val)
+                dfs(root.left)
+                dfs(root.right)
             # the return below is optional since
             # If the function doesn't have any return statement,
             # then it returns None
