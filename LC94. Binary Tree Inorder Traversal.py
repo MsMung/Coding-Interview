@@ -13,7 +13,6 @@ return the inorder traversal of its nodes' values.
 #         self.right = right
 class Solution:
     def inorderTraversal(self, root: Optional[TreeNode]) -> List[int]:
-        '''
         # Approach 1. Recursion
         result = []
 
@@ -25,7 +24,6 @@ class Solution:
         
         helper(root)
         return result
-        '''
 
         # Approach 2. Iteration
         # time & space complexity is O(n)
