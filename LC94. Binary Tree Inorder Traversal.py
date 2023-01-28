@@ -17,13 +17,13 @@ class Solution:
         # Approach 1. Recursion
         result = []
 
-        def helper(root, result):
+        def helper(root):
             if root != None:
-                helper(root.left, result)
+                helper(root.left)
                 result.append(root.val)
-                helper(root.right, result)
+                helper(root.right)
         
-        helper(root, result)
+        helper(root)
         return result
         '''
 
