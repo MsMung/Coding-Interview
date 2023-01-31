@@ -30,7 +30,7 @@ class Solution:
         return isMirror(root.left, root.right)
         
         
-        # apprach 2. Iteration
+        # apprach 2. Iteration using deque
         from collections import deque
         
         if root == None:
@@ -58,5 +58,33 @@ class Solution:
             q.append(left.right)
             q.append(right.left)
 
+        return True
+    
+        # approach 3. Iteration using stack
+        if root == None:
+            return True
+        
+        stack = []
+        stack.append(root.left)
+        stack.append(root.right)
+        
+        while len(stack) != 0:
+            node1 = stack.pop()
+            node2 = stack.pop()
+            
+            if node1 == None and node2 == None:
+                continue
+            
+            if node1 == None or node2 == None:
+                return False
+            
+            if node1.val != node2.val:
+                return False
+            
+            stack.append(node1.left)
+            stack.append(node2.right)
+            stack.append(node1.right)
+            stack.append(node2.left)
+        
         return True
         
