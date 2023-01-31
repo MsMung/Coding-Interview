@@ -20,6 +20,7 @@ class Solution:
         # space complexity O(H)
         
         # 1 recursion
+        # version 1 - leetcode solution
         if root == None:
             return False
         
@@ -30,6 +31,14 @@ class Solution:
         
         return self.hasPathSum(root.left, targetSum) or self.hasPathSum(root.right, targetSum)
        
+        # version 2 - self
+        if root == None:
+            return False
+
+        if root.left == None and root.right == None:
+            return root.val - targetSum == 0
+        
+        return self.hasPathSum(root.left, targetSum - root.val) or self.hasPathSum(root.right, targetSum - root.val)
 
         # 2 iteration using stack
         '''
@@ -37,6 +46,7 @@ class Solution:
         Then we proceed to the iterations: pop the current node out of the stack and return True if the remaining sum is 0 and we're on the leaf node. 
         If the remaining sum is not zero or we're not on the leaf yet then we push the child nodes and corresponding remaining sums into stack.
         '''
+        # version 1 - leetcode sol
         if root == None:
             return False
 
@@ -55,3 +65,21 @@ class Solution:
         
         return False
 
+        # version 2 - self sol
+        if root == None:
+            return False
+        
+        stack = [(root, targetSum)]
+        while stack:
+            node, currSum = stack.pop()
+            
+            if node.left == None and node.right == None and currSum - node.val == 0:
+                return True
+            
+            if node.right:
+                stack.append((node.right, currSum - node.val))
+            
+            if node.left:
+                stack.append((node.left, currSum - node.val))
+        
+        return False
