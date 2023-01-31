@@ -7,63 +7,66 @@
 #         self.val = val
 #         self.left = left
 #         self.right = right
-
 class Solution:
-    def findNode(self, root, key):
-        parent = None
-        curr = root
-        while (curr != None and curr.val != key):
-            parent = curr
-            if key < curr.val:
-                curr = curr.left
-            else:
-                curr = curr.right
-        if curr == None:
-            parent = None
-        return (curr, parent)
-    
-    def findSmallest(self, root):
-        parent = None
-        curr = root
-        while curr.left != None:
-            parent = curr
-            curr = curr.left
-
-        return (curr, parent)
-
     def deleteNode(self, root: Optional[TreeNode], key: int) -> Optional[TreeNode]:
-        (delete_node, delete_parent) = self.findNode(root, key)
+        def bst_find(root, key):
+            parent = None
+            curr = root
 
-        if delete_node == None:
-            return root
-
-        # if delete_node has no left child
-        if delete_node.left == None:
-            if delete_parent == None:
-                root = delete_node.right
-            elif delete_parent.left == delete_node:
-                delete_parent.left = delete_node.right
-            else:
-                delete_parent.right = delete_node.right
-
-        # if delete_node has no right child
-        elif delete_node.right == None:
-            if delete_parent == None:
-                root = delete_node.left
-            elif delete_parent.left == delete_node:
-                delete_parent.left = delete_node.left
-            else:
-                delete_parent.right = delete_node.left
-
-        # if delete_node has both left and right child
-        else:
-            # find the next bigger node 
-            (next_bigger, next_parent) = self.findSmallest(delete_node.right)
-            delete_node.val = next_bigger.val
-            # delete next_bigger
-            if next_parent == None:
-                delete_node.right = next_bigger.right
-            else:
-                next_parent.left = next_bigger.right
+            while curr != None and curr.val != key:
+                parent = curr
+                if key < curr.val:
+                    curr = curr.left
+                else:
+                    curr = curr.right
+            if curr == None:
+                parent = None
+            return (curr, parent)
         
+        
+        def bst_find_smallest(root):
+            parent = None
+            curr = root
+            while curr.left != None:
+                parent = curr
+                curr = curr.left
+            return (curr, parent)
+        
+        
+        # search for the node to delete
+        (del_node, del_parent) = bst_find(root, key)
+
+        # delete the node
+        # the node to delete has 1 child
+        if del_node != None:
+            # no left child
+            if del_node.left == None:
+                if del_parent == None:
+                    root = del_node.right
+                elif del_parent.left == del_node:
+                    del_parent.left = del_node.right
+                else:
+                    del_parent.right = del_node.right
+            
+            # no right child
+            elif del_node.right == None:
+                if del_parent == None:
+                    root = del_node.left
+                elif del_parent.left == del_node:
+                    del_parent.left = del_node.left
+                else:
+                    del_parent.right = del_node.left
+
+            # the node to delete has 2 children
+            else:
+                (next_bigger, next_parent) = bst_find_smallest(del_node.right)
+                # copy data from next bigger node to node to delete
+                del_node.val = next_bigger.val
+
+                # delete the next bigger node
+                if next_parent == None:
+                    del_node.right = next_bigger.right
+                else:
+                    next_parent.left = next_bigger.right
+            
         return root
