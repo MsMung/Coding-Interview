@@ -64,6 +64,7 @@ class Solution:
         return result
     
         # version 2
+        # https://leetcode.com/problems/binary-tree-postorder-traversal/solutions/45551/preorder-inorder-and-postorder-iteratively-summarization/comments/44992/
         result = []
         stack = []
         curr = root

@@ -23,6 +23,7 @@ class Solution:
         '''
 
         # Approach 2. Iteration
+        # version 1
         result = []
         if root == None:
             return result
@@ -41,3 +42,18 @@ class Solution:
 
         return result
 
+        # approach 2
+        result = []
+        stack = []
+        curr = root
+
+        while stack or curr != None:
+            if curr != None:
+                stack.append(curr)
+                result.insert(0, curr.val)
+                curr = curr.right
+            else:
+                node = stack.pop()
+                curr = node.left
+        
+        return result
