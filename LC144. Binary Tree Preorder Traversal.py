@@ -50,6 +50,7 @@ class Solution:
         we need to add the right child before the left child
         to access the left child before the right child
         '''
+        # version 1
         result = []
         stack = [root]
 
@@ -59,6 +60,23 @@ class Solution:
                 result.append(top_node.val)
                 stack.append(top_node.right)
                 stack.append(top_node.left)
+
+        return result
+    
+        # version 2
+        result = []
+        stack = []
+        curr = root
+
+        while stack or curr != None:
+            if curr != None:
+                result.append(curr)
+                # add before going to children
+                result.append(curr.val)
+                curr = curr.left
+            else:
+                node = stack.pop()
+                curr = node.right
 
         return result
         
