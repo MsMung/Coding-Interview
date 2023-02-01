@@ -27,6 +27,7 @@ class Solution:
 
         # Approach 2. Iteration
         # time & space complexity is O(n)
+        # version 1. leetcode solution
         result = []
         stack = []
         curr = root
@@ -38,6 +39,22 @@ class Solution:
             curr = stack.pop()
             result.append(curr.val)
             curr = curr.right
+
+        return result
+    
+        # version 2. leetcode comment sol
+        def pushAllLeft(node, stack):
+            while node != None:
+                stack.append(node)
+                node = node.left
+
+        result = []
+        stack = []
+        pushAllLeft(root, stack)
+        while stack:
+            curr = stack.pop()
+            result.append(curr.val)
+            pushAllLeft(curr.right, stack)
 
         return result
 
