@@ -58,3 +58,19 @@ class Solution:
 
         return result
 
+        # version 3. leetcode comment sol
+        result = []
+        stack = []
+        curr = root
+
+        while stack or curr != None:
+            if curr != None:
+                stack.append(curr)
+                curr = curr.left
+            else:
+                node = stack.pop()
+                # add after all left children
+                result.append(node.val)
+                curr = node.right
+        return result
+
